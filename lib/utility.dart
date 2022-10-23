@@ -11,7 +11,6 @@ class Utility {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.audio,
       allowMultiple: false,
-      withData: true,
     );
     if (result == null) return;
     final file = result.files.first;
