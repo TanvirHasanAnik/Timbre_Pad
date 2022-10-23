@@ -11,6 +11,7 @@ class Utility {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.audio,
       allowMultiple: false,
+      withData: true,
     );
     if (result == null) return;
     final file = result.files.first;
@@ -19,7 +20,7 @@ class Utility {
     print('From path:  ${file.path}');
     print('To path:  ${newFile.path}');
 
-    await db.updatePadItem(padId, file.name, newFile.path);
+    await db.updatePad(padId, file.name, newFile.path);
   }
 
   Future<File> saveFilePermanently(PlatformFile file) async {

@@ -34,7 +34,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> updatePadItem(int? id, String newTitle, String path) async {
+  Future<void> updatePad(int? id, String newTitle, String path) async {
     final db = await database;
     await db.rawUpdate('''
       UPDATE pad SET ${Pad.COL_TITLE} = ?, ${Pad.COL_PATH} = ?
