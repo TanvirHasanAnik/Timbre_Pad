@@ -52,7 +52,10 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                       Pad? pad = snapshot.data?[index];
                       return GestureDetector(
                         onTap: () async {
-                          AudioPlayer().play(DeviceFileSource(pad?.path ?? ''));
+                          AudioPlayer().play(
+                            DeviceFileSource(pad?.path ?? ''),
+                            mode: PlayerMode.lowLatency,
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
