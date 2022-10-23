@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/custom_widgets.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/database_helper.dart';
+import 'package:flutter_projects/utility.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -58,7 +59,10 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context,index){
                     Pad? pad = snapshot.data?[index];
                     return GestureDetector(
-                      onTap: () async {},
+                      onTap: () async {
+                        Utility utility = Utility();
+                        utility.pickAudio();
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.blueAccent,
