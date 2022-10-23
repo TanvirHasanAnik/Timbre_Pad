@@ -55,7 +55,8 @@ class DatabaseHelper {
         (index) => Pad(
               id: items[index][Pad.COL_ID],
               title: items[index][Pad.COL_TITLE],
-    ));
+              path: items[index][Pad.COL_PATH],
+            ));
   }
 
   Future<bool> padTableExists() async {

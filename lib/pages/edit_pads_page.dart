@@ -46,7 +46,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
                         },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.blueAccent,
+                            color: Colors.amber,
                             borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text("${pad?.title}"),
