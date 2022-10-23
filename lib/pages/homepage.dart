@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/custom_widgets.dart';
-import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/database_helper.dart';
+import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/utility.dart';
 
 class HomePage extends StatefulWidget {
@@ -61,8 +60,9 @@ class _HomePageState extends State<HomePage> {
                     return GestureDetector(
                       onTap: () async {
                         Utility utility = Utility();
-                        utility.pickAudio();
-                      },
+                          await utility.pickAudio(pad?.id);
+                          setState(() {});
+                        },
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.blueAccent,

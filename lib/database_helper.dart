@@ -1,11 +1,12 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+
 import 'models/pad.dart';
-class DatabaseHelper{
+
+class DatabaseHelper {
   Database? _database;
 
-  Future<Database> get database async{
+  Future<Database> get database async {
     final dbpath = await getDatabasesPath();
 
     const dbname = 'pad.db';
@@ -20,7 +21,8 @@ class DatabaseHelper{
   Future<void> _createDB(Database db, int version) async {
     await db.execute('''CREATE TABLE pad(
         ${Pad.COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${Pad.COL_TITLE} TEXT
+        ${Pad.COL_TITLE} TEXT,
+        ${Pad.COL_PATH} TEXT
       )''');
   }
 
@@ -32,16 +34,27 @@ class DatabaseHelper{
     );
   }
 
+  Future<void> updatePadItem(int? id, String newTitle, String path) async {
+    final db = await database;
+    await db.rawUpdate('''
+      UPDATE pad SET ${Pad.COL_TITLE} = ?, ${Pad.COL_PATH} = ?
+      WHERE ${Pad.COL_ID} = ?
+    ''', [newTitle, path, id]);
+  }
+
   Future<List<Pad>> getPad() async {
     final db = await database;
 
-    List<Map<String, dynamic>> items = await db.query('pad',
+    List<Map<String, dynamic>> items = await db.query(
+      'pad',
       orderBy: Pad.COL_ID,
     );
 
-    return List.generate(items.length, (index) => Pad(
-      id: items[index][Pad.COL_ID],
-      title: items[index][Pad.COL_TITLE],
+    return List.generate(
+        items.length,
+        (index) => Pad(
+              id: items[index][Pad.COL_ID],
+              title: items[index][Pad.COL_TITLE],
     ));
   }
 
