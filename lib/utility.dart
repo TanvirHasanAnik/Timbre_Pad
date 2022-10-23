@@ -1,30 +1,22 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
+import 'package:filesystem_picker/filesystem_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_projects/database_helper.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 DatabaseHelper db = new DatabaseHelper();
 
 class Utility {
-  Future pickAudio(int? padId) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.audio,
-      allowMultiple: false,
+  Future pickAudio(int? padId, BuildContext context) async {
+    var result = await FilesystemPicker.open(
+      allowedExtensions: [".mp3", ".aac"],
+      context: context,
+      rootDirectory: Directory("storage/emulated/0"),
     );
-    if (result == null) return;
-    final file = result.files.first;
-    final newFile = await saveFilePermanently(file);
-
-    print('From path:  ${file.path}');
-    print('To path:  ${newFile.path}');
-
-    await db.updatePad(padId, file.name, newFile.path);
-  }
-
-  Future<File> saveFilePermanently(PlatformFile file) async {
-    final appStorage = await getApplicationDocumentsDirectory();
-    final newFile = File('${appStorage.path}/${file.name}');
-    return File(file.path!).copy(newFile.path);
+    if (result != null) {
+      File file = File(result);
+      await db.updatePad(padId, basename(file.path), file.path);
+    }
   }
 }
