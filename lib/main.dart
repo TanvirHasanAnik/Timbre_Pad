@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/pages/homepage.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
+import 'package:flutter_projects/pages/play_pads_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const PlayPadsPage(),
     );
   }
 }

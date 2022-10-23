@@ -3,45 +3,26 @@ import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/utility.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class EditPadsPage extends StatefulWidget {
+  const EditPadsPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<EditPadsPage> createState() => _EditPadsPageState();
 }
+
 var db = DatabaseHelper();
 const List<String> list = <String>['Play mode', 'Edit mode'];
 String dropdownValue = list.first;
 bool isTrackRunning = false;
-class _HomePageState extends State<HomePage> {
+
+class _EditPadsPageState extends State<EditPadsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-            DropdownButton<String>(
-            value: dropdownValue,
-            icon: const Icon(Icons.arrow_drop_down,color: Colors.black54),
-            style: const TextStyle(color: Colors.black54,fontWeight: FontWeight.bold),
-            onChanged: (String? value) {
-              // This is called when the user selects an item.
-              setState(() {
-                dropdownValue = value!;
-              });
-            },
-            items: list.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          )
-        ],
-        title: Text("Pads"),
+        title: Text("Edit"),
         backgroundColor: Colors.amber,
       ),
-
-
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(10),
