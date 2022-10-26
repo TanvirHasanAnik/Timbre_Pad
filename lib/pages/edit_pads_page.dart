@@ -58,19 +58,23 @@ class _EditPadsPageState extends State<EditPadsPage> {
       child: Column(
         children: [
           padTitleWidget(pad),
-          buttonsRowWidget(),
+          buttonsRowWidget(pad),
         ],
       ),
     );
   }
 
-  Row buttonsRowWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        fileSelectorButton(),
-        soundModeButton(),
-      ],
+  Widget buttonsRowWidget(Pad pad) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          fileSelectorButton(pad),
+          const SizedBox(width: 8),
+          soundModeButton(),
+        ],
+      ),
     );
   }
 
@@ -79,16 +83,18 @@ class _EditPadsPageState extends State<EditPadsPage> {
       onTap: () async {
         print("object");
       },
-      child: Icon(Icons.ac_unit),
+      child: const Icon(Icons.category_outlined),
     );
   }
 
-  GestureDetector fileSelectorButton() {
+  GestureDetector fileSelectorButton(Pad pad) {
     return GestureDetector(
       onTap: () async {
-        print("object");
+        Utility utility = Utility();
+        await utility.pickAudio(pad.id, context);
+        setState(() {});
       },
-      child: Icon(Icons.folder_copy),
+      child: const Icon(Icons.audio_file_outlined),
     );
   }
 
@@ -96,16 +102,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GestureDetector(
-          onTap: () async {
-            Utility utility = Utility();
-            await utility.pickAudio(pad.id, context);
-            setState(() {});
-          },
-          child: Container(
-            child: Text("${pad!.title}"),
-          ),
-        ),
+        child: Text("${pad.title}"),
       ),
     );
   }
