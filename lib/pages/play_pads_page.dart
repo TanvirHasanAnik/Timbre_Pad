@@ -23,7 +23,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           IconButton(
             icon: Icon(
               Icons.sync,
-              color: Colors.lightBlueAccent,
+              color: Colors.white,
             ),
             onPressed: () {
               setState(() {});
@@ -32,7 +32,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           IconButton(
             icon: Icon(
               Icons.edit,
-              color: Colors.lightBlueAccent,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.push(context,
@@ -41,7 +41,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           ),
         ],
         title: Text("Play"),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.greenAccent,
       ),
       body: SafeArea(
         child: Container(

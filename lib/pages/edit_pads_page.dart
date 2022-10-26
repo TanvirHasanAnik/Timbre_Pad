@@ -21,7 +21,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit"),
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
         child: Container(
