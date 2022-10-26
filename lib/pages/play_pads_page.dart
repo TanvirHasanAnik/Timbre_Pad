@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/pages/edit_pads_page.dart';
+import 'package:flutter_projects/utility.dart';
 
 class PlayPadsPage extends StatefulWidget {
   const PlayPadsPage({Key? key}) : super(key: key);
@@ -49,13 +50,12 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     ),
                     itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
+                      AudioPlayer _player = AudioPlayer();
                       Pad? pad = snapshot.data?[index];
                       return GestureDetector(
                         onTap: () async {
-                          AudioPlayer().play(
-                            DeviceFileSource(pad?.path ?? ''),
-                            mode: PlayerMode.lowLatency,
-                          );
+                          Utility utility = Utility();
+                          utility.LoopAudio(pad, _player);
                         },
                         child: Container(
                           decoration: BoxDecoration(
