@@ -10,7 +10,7 @@ void main() async {
     for(int i = 1; i <= 9; i++){
       await db.insertPad(Pad(
         title: "$i",
-      ));
+        soundMode: Pad.MODE_ONESHOT));
     }
   }
   runApp(const MyApp());

@@ -22,6 +22,15 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
         actions: [
           IconButton(
             icon: Icon(
+              Icons.sync,
+              color: Colors.lightBlueAccent,
+            ),
+            onPressed: () {
+              setState(() {});
+            },
+          ),
+          IconButton(
+            icon: Icon(
               Icons.edit,
               color: Colors.lightBlueAccent,
             ),
@@ -55,7 +64,22 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                       return GestureDetector(
                         onTap: () async {
                           Utility utility = Utility();
-                          utility.LoopAudio(pad, _player);
+                          switch (pad!.soundMode) {
+                            case (Pad.MODE_ONESHOT):
+                              {
+                                utility.oneshot(pad, _player);
+                                break;
+                              }
+                            case (Pad.MODE_LOOPBACK):
+                              {
+                                utility.loopback(pad, _player);
+                                break;
+                              }
+                            case (Pad.MODE_LOOP):
+                              {
+                                utility.loop(pad, _player);
+                              }
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(

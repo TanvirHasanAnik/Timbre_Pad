@@ -22,7 +22,8 @@ class DatabaseHelper {
     await db.execute('''CREATE TABLE pad(
         ${Pad.COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${Pad.COL_TITLE} TEXT,
-        ${Pad.COL_PATH} TEXT
+        ${Pad.COL_PATH} TEXT,
+        ${Pad.COL_SOUNDMODE} TEXT
       )''');
   }
 
@@ -53,9 +54,10 @@ class DatabaseHelper {
     return List.generate(
         items.length,
         (index) => Pad(
-              id: items[index][Pad.COL_ID],
+          id: items[index][Pad.COL_ID],
               title: items[index][Pad.COL_TITLE],
               path: items[index][Pad.COL_PATH],
+              soundMode: items[index][Pad.COL_SOUNDMODE],
             ));
   }
 

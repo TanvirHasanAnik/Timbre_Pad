@@ -23,19 +23,38 @@ class Utility {
     }
   }
 
-  void LoopAudio(Pad? pad, AudioPlayer? _player) async {
-    // Duration? duration  = await _player!.getDuration();
-    // print("-------------------------------------------------------- $duration");
+  void loopback(Pad? pad, AudioPlayer? _player) async {
     if (await _player!.state == PlayerState.playing) {
-      print("STOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP");
       _player.stop();
     } else {
-      print("PLAyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
       await _player.play(
         DeviceFileSource(pad?.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
       _player.setReleaseMode(ReleaseMode.loop);
+    }
+  }
+
+  void oneshot(Pad? pad, AudioPlayer? _player) async {
+    if (await _player!.state == PlayerState.playing) {
+      _player.stop();
+    } else {
+      await _player.play(
+        DeviceFileSource(pad?.path ?? ''),
+        mode: PlayerMode.lowLatency,
+      );
+    }
+  }
+
+  void loop(Pad? pad, AudioPlayer? _player) async {
+    if (await _player!.state == PlayerState.playing) {
+      _player.stop();
+    } else {
+      await _player.play(
+        DeviceFileSource(pad?.path ?? ''),
+        mode: PlayerMode.lowLatency,
+      );
+      _player.setReleaseMode(ReleaseMode.release);
     }
   }
 }
