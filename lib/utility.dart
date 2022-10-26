@@ -39,10 +39,12 @@ class Utility {
     if (await _player!.state == PlayerState.playing) {
       _player.stop();
     } else {
-      await _player.play(
-        DeviceFileSource(pad?.path ?? ''),
-        mode: PlayerMode.lowLatency,
-      );
+      await _player
+          .play(
+            DeviceFileSource(pad?.path ?? ''),
+            mode: PlayerMode.lowLatency,
+          )
+          .then((value) => _player.dispose());
     }
   }
 
