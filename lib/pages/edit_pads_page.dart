@@ -28,33 +28,82 @@ class _EditPadsPageState extends State<EditPadsPage> {
           padding: EdgeInsets.all(10),
           child: FutureBuilder(
             future: db.getPad(),
-            builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot){
-              return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context,index){
-                    Pad? pad = snapshot.data?[index];
-                    return GestureDetector(
-                      onTap: () async {
-                        Utility utility = Utility();
-                          await utility.pickAudio(pad?.id, context);
-                          setState(() {});
-                        },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Text("${pad?.title}"),
-                      ),
-                    );
-                  }
-              );
-            }
+            builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
+              return gridViewWidget(snapshot);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  GridView gridViewWidget(AsyncSnapshot<List<Pad>> snapshot) {
+    return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: snapshot.data?.length,
+        itemBuilder: (context, index) {
+          Pad pad = snapshot.data![index];
+          return editPadItemWidget(pad);
+        });
+  }
+
+  Widget editPadItemWidget(Pad pad) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.amber, borderRadius: BorderRadius.circular(12)),
+      child: Column(
+        children: [
+          padTitleWidget(pad),
+          buttonsRowWidget(),
+        ],
+      ),
+    );
+  }
+
+  Row buttonsRowWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        fileSelectorButton(),
+        soundModeButton(),
+      ],
+    );
+  }
+
+  GestureDetector soundModeButton() {
+    return GestureDetector(
+      onTap: () async {
+        print("object");
+      },
+      child: Icon(Icons.ac_unit),
+    );
+  }
+
+  GestureDetector fileSelectorButton() {
+    return GestureDetector(
+      onTap: () async {
+        print("object");
+      },
+      child: Icon(Icons.folder_copy),
+    );
+  }
+
+  Widget padTitleWidget(Pad pad) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+          onTap: () async {
+            Utility utility = Utility();
+            await utility.pickAudio(pad.id, context);
+            setState(() {});
+          },
+          child: Container(
+            child: Text("${pad!.title}"),
           ),
         ),
       ),
