@@ -54,7 +54,8 @@ class _EditPadsPageState extends State<EditPadsPage> {
   Widget editPadItemWidget(Pad pad) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.amber, borderRadius: BorderRadius.circular(12)),
+          color: Colors.lightBlueAccent,
+          borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
           padTitleWidget(pad),
