@@ -68,7 +68,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                           switch (pad.soundMode) {
                             case (Pad.MODE_ONESHOT):
                               {
-                                utility.oneshot(pad, player);
+                                utility.oneshot(pad);
                                 break;
                               }
                             case (Pad.MODE_LOOPBACK):
