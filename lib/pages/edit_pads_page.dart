@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/utility.dart';
+enum Menu { oneshot, loopback, loop }
 
 class EditPadsPage extends StatefulWidget {
   const EditPadsPage({Key? key}) : super(key: key);
@@ -73,19 +74,40 @@ class _EditPadsPageState extends State<EditPadsPage> {
         children: [
           fileSelectorButton(pad),
           const SizedBox(width: 8),
-          soundModeButton(),
+          soundModeButton(pad),
         ],
       ),
     );
   }
 
-  GestureDetector soundModeButton() {
-    return GestureDetector(
-      onTap: () async {
-        print("object");
-      },
-      child: const Icon(Icons.category_outlined),
-    );
+  Widget soundModeButton(Pad pad) {
+    // return GestureDetector(
+    //   onTap: () async {
+    //     print("object");
+    //   },
+    //   child: const Icon(Icons.category_outlined),
+    // );
+    return PopupMenuButton(
+        onSelected: (Menu item) {
+          setState(() {
+            db.updatePadSoundMode(pad.id, item.name);
+          });
+        },
+        child: const Icon(Icons.category_outlined),
+        itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: Menu.oneshot,
+                child: Text('oneshot'),
+              ),
+              const PopupMenuItem(
+                value: Menu.loopback,
+                child: Text('loopback'),
+              ),
+              const PopupMenuItem(
+                value: Menu.loop,
+                child: Text('loop'),
+              )
+            ]);
   }
 
   GestureDetector fileSelectorButton(Pad pad) {

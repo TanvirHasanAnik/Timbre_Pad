@@ -43,6 +43,14 @@ class DatabaseHelper {
     ''', [newTitle, path, id]);
   }
 
+  Future<void> updatePadSoundMode(int? id, String newSoundMode) async {
+    final db = await database;
+    await db.rawUpdate('''
+      UPDATE pad SET ${Pad.COL_SOUNDMODE} = ?
+      WHERE ${Pad.COL_ID} = ?
+    ''', [newSoundMode, id]);
+  }
+
   Future<List<Pad>> getPad() async {
     final db = await database;
 

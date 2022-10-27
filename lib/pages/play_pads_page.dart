@@ -59,7 +59,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     ),
                     itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
-                      AudioPlayer _player = AudioPlayer();
+                      AudioPlayer player = AudioPlayer();
                       Pad? pad = snapshot.data?[index];
                       return GestureDetector(
                         onTap: () async {
@@ -67,17 +67,18 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                           switch (pad!.soundMode) {
                             case (Pad.MODE_ONESHOT):
                               {
-                                utility.oneshot(pad, _player);
+                                utility.oneshot(pad, player);
                                 break;
                               }
                             case (Pad.MODE_LOOPBACK):
                               {
-                                utility.loopback(pad, _player);
+                                utility.loopback(pad, player);
                                 break;
                               }
                             case (Pad.MODE_LOOP):
                               {
-                                utility.loop(pad, _player);
+                                utility.loop(pad, player);
+                                break;
                               }
                           }
                         },

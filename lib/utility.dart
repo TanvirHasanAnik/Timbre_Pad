@@ -23,15 +23,15 @@ class Utility {
     }
   }
 
-  void loopback(Pad? pad, AudioPlayer? _player) async {
-    if (await _player!.state == PlayerState.playing) {
-      _player.stop();
+  void loopback(Pad pad, AudioPlayer player) async {
+    if (player.state == PlayerState.playing) {
+      player.stop();
     } else {
-      await _player.play(
-        DeviceFileSource(pad?.path ?? ''),
+      await player.setReleaseMode(ReleaseMode.loop);
+      player.play(
+        DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
-      _player.setReleaseMode(ReleaseMode.loop);
     }
   }
 
