@@ -113,8 +113,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
   GestureDetector fileSelectorButton(Pad pad) {
     return GestureDetector(
       onTap: () async {
-        Utility utility = Utility();
-        await utility.pickAudio(pad.id, context);
+        await Utility.pickAudio(pad.id, context);
         setState(() {});
       },
       child: const Icon(Icons.audio_file_outlined),

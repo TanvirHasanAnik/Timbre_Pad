@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 
 import 'models/pad.dart';
 
-DatabaseHelper db = new DatabaseHelper();
+DatabaseHelper db = DatabaseHelper();
 
 class Utility {
   static Future pickAudio(int? padId, BuildContext context) async {
