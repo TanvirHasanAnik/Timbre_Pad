@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/utility.dart';
+
 enum Menu { oneshot, loopback, loop }
 
 class EditPadsPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: snapshot.data?.length,
+        itemCount: snapshot.data?.length ?? 0,
         itemBuilder: (context, index) {
           Pad pad = snapshot.data![index];
           return editPadItemWidget(pad);

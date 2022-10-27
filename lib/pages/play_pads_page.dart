@@ -63,19 +63,22 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                       AudioPlayer player =
                           AudioPlayer(playerId: pad.id.toString());
                       return GestureDetector(
-                        onLongPressStart: (longPressEndDetails) {},
-                        onLongPressEnd: (longPressEndDetails) {},
+                        onLongPressStart: (longPressEndDetails) {
+                          if (pad.soundMode == SoundMode.loop.name) {
+                            Utility.loopStart(pad, player);
+                          }
+                        },
+                        onLongPressEnd: (longPressEndDetails) {
+                          if (pad.soundMode == SoundMode.loop.name) {
+                            Utility.loopEnd(pad, player);
+                          }
+                        },
                         onTap: () async {
-                          switch (pad.soundMode) {
-                            case (Pad.MODE_ONESHOT):
-                              Utility.oneshot(pad);
-                              break;
-                            case (Pad.MODE_LOOPBACK):
-                              Utility.loopback(pad, player);
-                              break;
-                            case (Pad.MODE_LOOP):
-                              Utility.loop(pad, player);
-                              break;
+                          if (pad.soundMode == SoundMode.oneshot.name) {
+                            Utility.oneshot(pad);
+                          }
+                          if (pad.soundMode == SoundMode.loopback.name) {
+                            Utility.loopback(pad, player);
                           }
                         },
                         child: Container(

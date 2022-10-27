@@ -8,9 +8,7 @@ void main() async {
   var db = DatabaseHelper();
   if(await db.padTableExists() == false){
     for(int i = 1; i <= 9; i++){
-      await db.insertPad(Pad(
-        title: "$i",
-        soundMode: Pad.MODE_ONESHOT));
+      await db.insertPad(Pad(title: "$i", soundMode: SoundMode.oneshot.name));
     }
   }
   runApp(const MyApp());

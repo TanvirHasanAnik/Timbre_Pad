@@ -42,15 +42,15 @@ class Utility {
     );
   }
 
-  static void loop(Pad pad, AudioPlayer player) async {
-    if (player.state == PlayerState.playing) {
-      player.stop();
-    } else {
-      await player.play(
-        DeviceFileSource(pad.path ?? ''),
-        mode: PlayerMode.lowLatency,
-      );
-      player.setReleaseMode(ReleaseMode.release);
-    }
+  static void loopStart(Pad pad, AudioPlayer player) async {
+    player.setReleaseMode(ReleaseMode.loop);
+    player.play(
+      DeviceFileSource(pad.path ?? ''),
+      mode: PlayerMode.lowLatency,
+    );
+  }
+
+  static void loopEnd(Pad pad, AudioPlayer player) {
+    player.stop();
   }
 }

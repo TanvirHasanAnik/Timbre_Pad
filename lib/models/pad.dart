@@ -1,4 +1,6 @@
-class Pad{
+enum SoundMode { oneshot, loopback, loop }
+
+class Pad {
   final int? id;
   final String? title;
   final String? path;
@@ -7,9 +9,6 @@ class Pad{
   static const COL_TITLE = "pad_title";
   static const COL_PATH = "pad_path";
   static const COL_SOUNDMODE = "pad_soundmode";
-  static const MODE_ONESHOT = "oneshot";
-  static const MODE_LOOPBACK = "loopback";
-  static const MODE_LOOP = "loop";
 
   Pad({this.id, this.title, this.path, this.soundMode});
 
