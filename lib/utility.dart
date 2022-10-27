@@ -11,7 +11,7 @@ import 'models/pad.dart';
 DatabaseHelper db = new DatabaseHelper();
 
 class Utility {
-  Future pickAudio(int? padId, BuildContext context) async {
+  static Future pickAudio(int? padId, BuildContext context) async {
     var result = await FilesystemPicker.open(
       allowedExtensions: [".mp3", ".aac"],
       context: context,
@@ -23,7 +23,7 @@ class Utility {
     }
   }
 
-  void loopback(Pad pad, AudioPlayer player) async {
+  static void loopback(Pad pad, AudioPlayer player) async {
     if (player.state == PlayerState.playing) {
       player.stop();
     } else {
@@ -35,14 +35,14 @@ class Utility {
     }
   }
 
-  void oneshot(Pad pad) {
+  static void oneshot(Pad pad) {
     AudioPlayer().play(
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
   }
 
-  void loop(Pad pad, AudioPlayer player) async {
+  static void loop(Pad pad, AudioPlayer player) async {
     if (player.state == PlayerState.playing) {
       player.stop();
     } else {
