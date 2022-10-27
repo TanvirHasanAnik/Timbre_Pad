@@ -75,7 +75,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                         },
                         onTap: () async {
                           if (pad.soundMode == SoundMode.oneshot.name) {
-                            Utility.oneshot(pad);
+                            Utility.oneshot(pad, player);
                           }
                           if (pad.soundMode == SoundMode.loopback.name) {
                             Utility.loopback(pad, player);

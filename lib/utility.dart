@@ -35,8 +35,9 @@ class Utility {
     }
   }
 
-  static void oneshot(Pad pad) {
-    AudioPlayer().play(
+  static void oneshot(Pad pad, AudioPlayer player) async {
+    await player.stop();
+    player.play(
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
