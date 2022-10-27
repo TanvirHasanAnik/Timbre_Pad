@@ -67,27 +67,21 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                           Utility utility = Utility();
                           switch (pad.soundMode) {
                             case (Pad.MODE_ONESHOT):
-                              {
                                 utility.oneshot(pad);
                                 break;
-                              }
                             case (Pad.MODE_LOOPBACK):
-                              {
                                 utility.loopback(pad, player);
                                 break;
-                              }
                             case (Pad.MODE_LOOP):
-                              {
                                 utility.loop(pad, player);
                                 break;
-                              }
                           }
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.greenAccent,
                               borderRadius: BorderRadius.circular(10)),
-                          child: Text("${pad?.title}"),
+                          child: Text("${pad.title}"),
                         ),
                       );
                     });
