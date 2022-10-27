@@ -57,7 +57,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                     ),
-                    itemCount: snapshot.data?.length,
+                    itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       Pad pad = snapshot.data![index];
                       AudioPlayer player =
