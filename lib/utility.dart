@@ -35,17 +35,11 @@ class Utility {
     }
   }
 
-  void oneshot(Pad? pad, AudioPlayer? _player) async {
-    if (await _player!.state == PlayerState.playing) {
-      _player.stop();
-    } else {
-      await _player
-          .play(
-            DeviceFileSource(pad?.path ?? ''),
-            mode: PlayerMode.lowLatency,
-          )
-          .then((value) => _player.dispose());
-    }
+  void oneshot(Pad pad, AudioPlayer player) {
+    player.play(
+      DeviceFileSource(pad.path ?? ''),
+      mode: PlayerMode.lowLatency,
+    );
   }
 
   void loop(Pad? pad, AudioPlayer? _player) async {
