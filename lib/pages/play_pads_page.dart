@@ -112,7 +112,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                 color: Colors.black.withOpacity(0.3),
                 spreadRadius: 1,
                 blurRadius: 3,
-                offset: Offset(6, 6), // changes position of shadow
+                offset: const Offset(3, 3), // changes position of shadow
               ),
             ],
             gradient: const RadialGradient(radius: 1, colors: <Color>[
@@ -130,18 +130,26 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
 
   Widget padSoundModeWidget(Pad pad) => Padding(
     padding: const EdgeInsets.all(8.0),
-        child: Text(
-          "${pad.soundMode}",
-          style: const TextStyle(
-              color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Text(
+            "${pad.soundMode}",
+            style: const TextStyle(
+                color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
+          ),
         ),
       );
 
-  Widget padTitleWidget(Pad pad) => Padding(
-    padding: const EdgeInsets.all(8.0),
-        child: Text(
-          "${pad.title}",
-          style: const TextStyle(color: Color(0xffFFFF00)),
+  Widget padTitleWidget(Pad pad) => Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Text(
+              "${pad.title}",
+              style: const TextStyle(color: Color(0xffFFFF00)),
+            ),
+          ),
         ),
       );
 }

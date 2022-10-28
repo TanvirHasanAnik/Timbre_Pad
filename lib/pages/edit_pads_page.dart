@@ -71,7 +71,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
               color: Colors.black.withOpacity(0.3),
               spreadRadius: 1,
               blurRadius: 3,
-              offset: Offset(6, 6), // changes position of shadow
+              offset: const Offset(3, 3), // changes position of shadow
             ),
           ],
           gradient: const RadialGradient(radius: 1, colors: <Color>[
@@ -149,7 +149,10 @@ class _EditPadsPageState extends State<EditPadsPage> {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(style: TextStyle(color: Colors.white), "${pad.title}"),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Text(style: TextStyle(color: Colors.white), "${pad.title}"),
+        ),
       ),
     );
   }
