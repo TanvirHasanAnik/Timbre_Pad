@@ -1,8 +1,13 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_projects/models/pad.dart';
 
-class AudioPlayerServices {
+class AudioPlayerServices extends ChangeNotifier {
   AudioPlayer player = AudioPlayer();
+
+  String getAudioStatus(AudioPlayer player) {
+    return player.state.name;
+  }
 
   void oneshot(Pad pad) {
     try {
@@ -12,6 +17,7 @@ class AudioPlayerServices {
         DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
+      notifyListeners();
     } on Exception catch (_, e) {
       print(e);
     }
@@ -20,12 +26,14 @@ class AudioPlayerServices {
   void loopback(Pad pad) async {
     if (player.state == PlayerState.playing) {
       player.stop();
+      notifyListeners();
     } else {
       await player.setReleaseMode(ReleaseMode.loop);
       player.play(
         DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
+      notifyListeners();
     }
   }
 
@@ -35,9 +43,11 @@ class AudioPlayerServices {
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
+    notifyListeners();
   }
 
   void loopEnd(Pad pad) {
     player.stop();
+    notifyListeners();
   }
 }

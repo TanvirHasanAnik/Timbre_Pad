@@ -3,6 +3,7 @@ import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/pages/edit_pads_page.dart';
+import 'package:provider/provider.dart';
 
 class PlayPadsPage extends StatefulWidget {
   const PlayPadsPage({Key? key}) : super(key: key);
@@ -99,37 +100,46 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                 print(e);
               }
             },
-            child: playPadItemWidget(pad),
+            child: playPadItemWidget(pad, playerService),
           );
         });
   }
 
-  Container playPadItemWidget(Pad pad) {
-    return Container(
-        decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(3, 3), // changes position of shadow
-              ),
-            ],
-            gradient: const RadialGradient(radius: 1, colors: <Color>[
-              Color(0xff2a5298),
-              Color(0xff1e3c72),
-            ]),
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [padTitleWidget(pad), padSoundModeWidget(pad)],
+  Widget playPadItemWidget(Pad pad, AudioPlayerServices playerService) {
+    return ChangeNotifierProvider<AudioPlayerServices>(
+        create: (BuildContext context) => playerService,
+        child: Consumer<AudioPlayerServices>(
+          builder: (context, asd, child) {
+            return Container(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset:
+                            const Offset(3, 3), // changes position of shadow
+                      ),
+                    ],
+                    gradient: RadialGradient(radius: 1, colors: <Color>[
+                      asd.getAudioStatus(playerService.player) == "stopped"
+                          ? Color(0xff000000)
+                          : Color(0xff1e3c72),
+                      Color(0xff1e3c72),
+                    ]),
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(12)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [padTitleWidget(pad), padSoundModeWidget(pad)],
+                ));
+          },
         ));
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
-    padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Text(
