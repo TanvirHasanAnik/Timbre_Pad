@@ -22,12 +22,12 @@ class _EditPadsPageState extends State<EditPadsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit"),
+        title: const Text("Edit"),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: FutureBuilder(
             future: db.getPad(),
             builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
