@@ -9,11 +9,11 @@ class AudioPlayerServices extends ChangeNotifier {
     return player.state.name;
   }
 
-  void oneshot(Pad pad) {
+  void oneshot(Pad pad) async {
     try {
       player.setReleaseMode(ReleaseMode.stop);
       player.stop();
-      player.play(
+      await player.play(
         DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
@@ -25,11 +25,11 @@ class AudioPlayerServices extends ChangeNotifier {
 
   void loopback(Pad pad) async {
     if (player.state == PlayerState.playing) {
-      player.stop();
+      await player.stop();
       notifyListeners();
     } else {
       await player.setReleaseMode(ReleaseMode.loop);
-      player.play(
+      await player.play(
         DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
@@ -39,15 +39,15 @@ class AudioPlayerServices extends ChangeNotifier {
 
   void loopStart(Pad pad) async {
     await player.setReleaseMode(ReleaseMode.loop);
-    player.play(
+    await player.play(
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
     notifyListeners();
   }
 
-  void loopEnd(Pad pad) {
-    player.stop();
+  void loopEnd(Pad pad) async {
+    await player.stop();
     notifyListeners();
   }
 }
