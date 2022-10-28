@@ -41,6 +41,7 @@ dependencies:
   file_picker: ^5.2.2
   filesystem_picker: ^3.0.0
   audioplayers: ^1.1.1
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

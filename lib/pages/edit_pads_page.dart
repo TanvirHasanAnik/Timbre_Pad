@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/utility.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 enum Menu { oneshot, loopback, loop }
 
@@ -135,7 +136,15 @@ class _EditPadsPageState extends State<EditPadsPage> {
   GestureDetector fileSelectorButton(Pad pad) {
     return GestureDetector(
       onTap: () async {
-        await Utility.pickAudio(pad.id, context);
+        if (await Permission.storage.request().isGranted) {
+          await Utility.pickAudio(pad.id, context);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Permission not granted!'),
+            ),
+          );
+        }
         setState(() {});
       },
       child: const Icon(
