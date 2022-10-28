@@ -18,6 +18,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(
@@ -131,8 +132,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
     padding: const EdgeInsets.all(8.0),
         child: Text(
           "${pad.soundMode}",
-          style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
         ),
       );
 
@@ -140,7 +141,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
     padding: const EdgeInsets.all(8.0),
         child: Text(
           "${pad.title}",
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Color(0xffFFFF00)),
         ),
       );
 }

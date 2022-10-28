@@ -22,6 +22,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text("Edit"),
         backgroundColor: const Color(0xffA1C4FD),
       ),
@@ -80,6 +81,8 @@ class _EditPadsPageState extends State<EditPadsPage> {
           color: Colors.blue,
           borderRadius: BorderRadius.circular(12)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           padTitleWidget(pad),
           buttonsRowWidget(pad),
