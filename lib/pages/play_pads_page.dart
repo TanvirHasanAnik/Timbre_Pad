@@ -40,10 +40,19 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           ),
         ],
         title: Text("Play"),
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: const Color(0xff50A7C2),
       ),
       body: SafeArea(
         child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  Color(0xff50A7C2),
+                  Color(0xffB7F8DB),
+                ]),
+          ),
           padding: EdgeInsets.all(10),
           child: FutureBuilder(
               future: db.getPad(),
@@ -97,7 +106,20 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   Container playPadItemWidget(Pad pad) {
     return Container(
         decoration: BoxDecoration(
-            color: Colors.greenAccent, borderRadius: BorderRadius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                spreadRadius: 1,
+                blurRadius: 3,
+                offset: Offset(6, 6), // changes position of shadow
+              ),
+            ],
+            gradient: const RadialGradient(radius: 1, colors: <Color>[
+              Color(0xff2a5298),
+              Color(0xff1e3c72),
+            ]),
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(12)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,12 +128,19 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("${pad.soundMode}"),
+    padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "${pad.soundMode}",
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       );
 
   Widget padTitleWidget(Pad pad) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("${pad.title}"),
+    padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "${pad.title}",
+          style: const TextStyle(color: Colors.white),
+        ),
       );
 }
