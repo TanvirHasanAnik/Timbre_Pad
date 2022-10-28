@@ -10,7 +10,7 @@ DatabaseHelper db = DatabaseHelper();
 class Utility {
   static Future pickAudio(int? padId, BuildContext context) async {
     var result = await FilesystemPicker.open(
-      allowedExtensions: [".mp3", ".aac"],
+      allowedExtensions: [".mp3", ".aac", ".flac", ".wav", ".m4a"],
       context: context,
       rootDirectory: Directory("storage/emulated/0"),
     );

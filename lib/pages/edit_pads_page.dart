@@ -82,12 +82,6 @@ class _EditPadsPageState extends State<EditPadsPage> {
   }
 
   Widget soundModeButton(Pad pad) {
-    // return GestureDetector(
-    //   onTap: () async {
-    //     print("object");
-    //   },
-    //   child: const Icon(Icons.category_outlined),
-    // );
     return PopupMenuButton(
         onSelected: (Menu item) {
           setState(() {
