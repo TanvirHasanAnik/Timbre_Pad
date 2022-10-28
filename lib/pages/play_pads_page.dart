@@ -49,52 +49,69 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               future: db.getPad(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
-                return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemCount: snapshot.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      Pad pad = snapshot.data![index];
-                      final AudioPlayerServices playerService =
-                          AudioPlayerServices();
-                      return GestureDetector(
-                        onLongPressStart: (longPressEndDetails) {
-                          if (pad.soundMode == SoundMode.loop.name) {
-                            playerService.loopStart(pad);
-                          }
-                        },
-                        onLongPressEnd: (longPressEndDetails) {
-                          if (pad.soundMode == SoundMode.loop.name) {
-                            playerService.loopEnd(pad);
-                          }
-                        },
-                        onTap: () {
-                          try {
-                            if (pad.soundMode == SoundMode.oneshot.name) {
-                              playerService.oneshot(pad);
-                            } else if (pad.soundMode ==
-                                SoundMode.loopback.name) {
-                              playerService.loopback(pad);
-                            }
-                          } on Exception catch (_, e) {
-                            print(e);
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.greenAccent,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Text("${pad.title}"),
-                        ),
-                      );
-                    });
+                return GridViewWidget(snapshot);
               }),
         ),
       ),
     );
   }
+
+  GridView GridViewWidget(AsyncSnapshot<List<Pad>> snapshot) {
+    return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: snapshot.data?.length ?? 0,
+        itemBuilder: (context, index) {
+          Pad pad = snapshot.data![index];
+          final AudioPlayerServices playerService = AudioPlayerServices();
+          return GestureDetector(
+            onLongPressStart: (longPressEndDetails) {
+              if (pad.soundMode == SoundMode.loop.name) {
+                playerService.loopStart(pad);
+              }
+            },
+            onLongPressEnd: (longPressEndDetails) {
+              if (pad.soundMode == SoundMode.loop.name) {
+                playerService.loopEnd(pad);
+              }
+            },
+            onTap: () {
+              try {
+                if (pad.soundMode == SoundMode.oneshot.name) {
+                  playerService.oneshot(pad);
+                } else if (pad.soundMode == SoundMode.loopback.name) {
+                  playerService.loopback(pad);
+                }
+              } on Exception catch (_, e) {
+                print(e);
+              }
+            },
+            child: playPadItemWidget(pad),
+          );
+        });
+  }
+
+  Container playPadItemWidget(Pad pad) {
+    return Container(
+        decoration: BoxDecoration(
+            color: Colors.greenAccent, borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [padTitleWidget(pad), padSoundModeWidget(pad)],
+        ));
+  }
+
+  Widget padSoundModeWidget(Pad pad) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("${pad.soundMode}"),
+      );
+
+  Widget padTitleWidget(Pad pad) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("${pad.title}"),
+      );
 }
