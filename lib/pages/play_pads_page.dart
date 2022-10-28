@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/pages/edit_pads_page.dart';
@@ -21,7 +22,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.sync,
               color: Colors.white,
             ),
@@ -30,7 +31,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             },
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.edit,
               color: Colors.white,
             ),
@@ -60,8 +61,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       Pad pad = snapshot.data![index];
-                      AudioPlayer player =
-                          AudioPlayer(playerId: pad.id.toString());
+                      final AudioPlayer player = AudioPlayer();
+                      final AudioPlayerServices playerService =
+                          AudioPlayerServices();
                       return GestureDetector(
                         onLongPressStart: (longPressEndDetails) {
                           if (pad.soundMode == SoundMode.loop.name) {
@@ -73,12 +75,16 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                             Utility.loopEnd(pad, player);
                           }
                         },
-                        onTap: () async {
-                          if (pad.soundMode == SoundMode.oneshot.name) {
-                            Utility.oneshot(pad, player);
-                          }
-                          if (pad.soundMode == SoundMode.loopback.name) {
-                            Utility.loopback(pad, player);
+                        onTap: () {
+                          try {
+                            if (pad.soundMode == SoundMode.oneshot.name) {
+                              playerService.oneshot(pad);
+                            } else if (pad.soundMode ==
+                                SoundMode.loopback.name) {
+                              Utility.loopback(pad, player);
+                            }
+                          } on Exception catch (_, e) {
+                            print(e);
                           }
                         },
                         child: Container(
