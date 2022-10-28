@@ -23,10 +23,19 @@ class _EditPadsPageState extends State<EditPadsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit"),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: const Color(0xffA1C4FD),
       ),
       body: SafeArea(
         child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.center,
+                end: Alignment.topCenter,
+                colors: <Color>[
+                  Color(0xffC2E9FB),
+                  Color(0xffA1C4FD),
+                ]),
+          ),
           padding: const EdgeInsets.all(10),
           child: FutureBuilder(
             future: db.getPad(),
@@ -56,7 +65,19 @@ class _EditPadsPageState extends State<EditPadsPage> {
   Widget editPadItemWidget(Pad pad) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.lightBlueAccent,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: Offset(6, 6), // changes position of shadow
+            ),
+          ],
+          gradient: const RadialGradient(radius: 1, colors: <Color>[
+            Color(0xff00CDAC),
+            Color(0xff02AABD),
+          ]),
+          color: Colors.blue,
           borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
@@ -71,7 +92,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           fileSelectorButton(pad),
           const SizedBox(width: 8),
@@ -88,7 +109,10 @@ class _EditPadsPageState extends State<EditPadsPage> {
             db.updatePadSoundMode(pad.id, item.name);
           });
         },
-        child: const Icon(Icons.category_outlined),
+        child: const Icon(
+          Icons.category,
+          color: Colors.white,
+        ),
         itemBuilder: (context) => [
               const PopupMenuItem(
                 value: Menu.oneshot,
@@ -111,7 +135,10 @@ class _EditPadsPageState extends State<EditPadsPage> {
         await Utility.pickAudio(pad.id, context);
         setState(() {});
       },
-      child: const Icon(Icons.audio_file_outlined),
+      child: const Icon(
+        Icons.audio_file_rounded,
+        color: Colors.white,
+      ),
     );
   }
 
@@ -119,7 +146,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text("${pad.title}"),
+        child: Text(style: TextStyle(color: Colors.white), "${pad.title}"),
       ),
     );
   }
