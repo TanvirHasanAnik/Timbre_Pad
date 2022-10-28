@@ -16,4 +16,28 @@ class AudioPlayerServices {
       print(e);
     }
   }
+
+  void loopback(Pad pad) async {
+    if (player.state == PlayerState.playing) {
+      player.stop();
+    } else {
+      await player.setReleaseMode(ReleaseMode.loop);
+      player.play(
+        DeviceFileSource(pad.path ?? ''),
+        mode: PlayerMode.lowLatency,
+      );
+    }
+  }
+
+  void loopStart(Pad pad) async {
+    await player.setReleaseMode(ReleaseMode.loop);
+    player.play(
+      DeviceFileSource(pad.path ?? ''),
+      mode: PlayerMode.lowLatency,
+    );
+  }
+
+  void loopEnd(Pad pad) {
+    player.stop();
+  }
 }

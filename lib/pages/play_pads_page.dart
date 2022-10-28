@@ -1,10 +1,8 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/pages/edit_pads_page.dart';
-import 'package:flutter_projects/utility.dart';
 
 class PlayPadsPage extends StatefulWidget {
   const PlayPadsPage({Key? key}) : super(key: key);
@@ -61,18 +59,17 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       Pad pad = snapshot.data![index];
-                      final AudioPlayer player = AudioPlayer();
                       final AudioPlayerServices playerService =
                           AudioPlayerServices();
                       return GestureDetector(
                         onLongPressStart: (longPressEndDetails) {
                           if (pad.soundMode == SoundMode.loop.name) {
-                            Utility.loopStart(pad, player);
+                            playerService.loopStart(pad);
                           }
                         },
                         onLongPressEnd: (longPressEndDetails) {
                           if (pad.soundMode == SoundMode.loop.name) {
-                            Utility.loopEnd(pad, player);
+                            playerService.loopEnd(pad);
                           }
                         },
                         onTap: () {
@@ -81,7 +78,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                               playerService.oneshot(pad);
                             } else if (pad.soundMode ==
                                 SoundMode.loopback.name) {
-                              Utility.loopback(pad, player);
+                              playerService.loopback(pad);
                             }
                           } on Exception catch (_, e) {
                             print(e);
