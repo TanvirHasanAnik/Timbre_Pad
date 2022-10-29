@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
@@ -27,7 +28,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               color: Colors.white,
             ),
             onPressed: () {
-              setState(() {});
+              setState(() {
+                AudioPlayer().dispose();
+              });
             },
           ),
           IconButton(
@@ -118,13 +121,13 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                         spreadRadius: 1,
                         blurRadius: 3,
                         offset:
-                            const Offset(3, 3), // changes position of shadow
+                        const Offset(3, 3), // changes position of shadow
                       ),
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
                       asd.getAudioStatus(playerService.player) == "stopped"
                           ? Color(0xff000000)
-                          : Color(0xff1e3c72),
+                          : Color(0xffffffff),
                       Color(0xff1e3c72),
                     ]),
                     color: Colors.blue,
@@ -139,27 +142,27 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Text(
-            "${pad.soundMode}",
-            style: const TextStyle(
-                color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
+    padding: const EdgeInsets.all(8.0),
+    child: SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Text(
+        "${pad.soundMode}",
+        style: const TextStyle(
+            color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 
   Widget padTitleWidget(Pad pad) => Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Text(
-              "${pad.title}",
-              style: const TextStyle(color: Color(0xffFFFF00)),
-            ),
-          ),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Text(
+          "${pad.title}",
+          style: const TextStyle(color: Color(0xffFFFF00)),
         ),
-      );
+      ),
+    ),
+  );
 }
