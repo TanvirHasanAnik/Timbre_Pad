@@ -19,9 +19,9 @@ class Utility {
       File file = File(result);
       AudioPlayer player = AudioPlayer();
       await player.setSourceUrl(file.path ?? '');
-      Duration asd =
+      Duration tempDuration =
           await player.getDuration() ?? const Duration(milliseconds: 1000);
-      int duration = asd.inMilliseconds;
+      int duration = tempDuration.inMilliseconds;
       await db.updatePad(padId, basename(file.path), file.path, duration);
     }
   }

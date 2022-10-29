@@ -112,7 +112,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
     return ChangeNotifierProvider<AudioPlayerServices>(
         create: (BuildContext context) => playerService,
         child: Consumer<AudioPlayerServices>(
-          builder: (context, asd, child) {
+          builder: (context, notifyPlayerService, child) {
             return Container(
                 decoration: BoxDecoration(
                     boxShadow: [
@@ -121,11 +121,13 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                         spreadRadius: 1,
                         blurRadius: 3,
                         offset:
-                        const Offset(3, 3), // changes position of shadow
+                            const Offset(3, 3), // changes position of shadow
                       ),
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
-                      asd.getAudioStatus(playerService.player) == "stopped"
+                      notifyPlayerService
+                                  .getAudioStatus(playerService.player) ==
+                              "stopped"
                           ? const Color(0xff000000)
                           : const Color(0xffC33764),
                       const Color(0xff1D2671),
