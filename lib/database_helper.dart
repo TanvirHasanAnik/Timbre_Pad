@@ -23,7 +23,8 @@ class DatabaseHelper {
         ${Pad.COL_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${Pad.COL_TITLE} TEXT,
         ${Pad.COL_PATH} TEXT,
-        ${Pad.COL_SOUNDMODE} TEXT
+        ${Pad.COL_SOUNDMODE} TEXT,
+        ${Pad.COL_DURATION} INTEGER
       )''');
   }
 
@@ -35,12 +36,13 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> updatePad(int? id, String newTitle, String path) async {
+  Future<void> updatePad(
+      int? id, String newTitle, String path, int? duration) async {
     final db = await database;
     await db.rawUpdate('''
-      UPDATE pad SET ${Pad.COL_TITLE} = ?, ${Pad.COL_PATH} = ?
+      UPDATE pad SET ${Pad.COL_TITLE} = ?, ${Pad.COL_PATH} = ?, ${Pad.COL_DURATION} = ?
       WHERE ${Pad.COL_ID} = ?
-    ''', [newTitle, path, id]);
+    ''', [newTitle, path, duration, id]);
   }
 
   Future<void> updatePadSoundMode(int? id, String newSoundMode) async {
@@ -66,6 +68,7 @@ class DatabaseHelper {
               title: items[index][Pad.COL_TITLE],
               path: items[index][Pad.COL_PATH],
               soundMode: items[index][Pad.COL_SOUNDMODE],
+              duration: items[index][Pad.COL_DURATION],
             ));
   }
 

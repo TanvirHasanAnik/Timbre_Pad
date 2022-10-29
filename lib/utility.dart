@@ -16,7 +16,7 @@ class Utility {
     );
     if (result != null) {
       File file = File(result);
-      await db.updatePad(padId, basename(file.path), file.path);
+      await db.updatePad(padId, basename(file.path), file.path, 1000);
     }
   }
 }

@@ -29,14 +29,14 @@ class AudioPlayerServices extends ChangeNotifier {
       player.stop();
       await player
           .play(
-            DeviceFileSource(pad.path ?? ''),
-            mode: PlayerMode.lowLatency,
-          )
-          .then((value) => {
-                Future.delayed(const Duration(milliseconds: 300), () {
-                  player.state = PlayerState.stopped;
-                })
-              });
+        DeviceFileSource(pad.path ?? ''),
+        mode: PlayerMode.lowLatency,
+      )
+          .then((value) async {
+        await Future.delayed(Duration(milliseconds: pad.duration ?? 1000), () {
+          player.stop();
+        });
+      });
     } on Exception catch (_, e) {
       print(e);
     }
