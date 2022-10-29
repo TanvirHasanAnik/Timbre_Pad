@@ -128,7 +128,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                       notifyPlayerService
                                   .getAudioStatus(playerService.player) ==
                               "stopped"
-                          ? const Color(0xff000000)
+                          ? const Color(0xff2f3db6)
                           : const Color(0xffC33764),
                       const Color(0xff1D2671),
                     ]),
