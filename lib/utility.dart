@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_projects/database_helper.dart';
@@ -16,7 +17,12 @@ class Utility {
     );
     if (result != null) {
       File file = File(result);
-      await db.updatePad(padId, basename(file.path), file.path, 1000);
+      AudioPlayer player = AudioPlayer();
+      await player.setSourceUrl(file.path ?? '');
+      Duration asd =
+          await player.getDuration() ?? const Duration(milliseconds: 1000);
+      int duration = asd.inMilliseconds;
+      await db.updatePad(padId, basename(file.path), file.path, duration);
     }
   }
 }
