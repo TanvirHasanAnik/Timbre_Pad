@@ -27,23 +27,16 @@ class AudioPlayerServices extends ChangeNotifier {
     try {
       player.setReleaseMode(ReleaseMode.stop);
       player.stop();
-      //notifyListeners();
       await player
           .play(
             DeviceFileSource(pad.path ?? ''),
             mode: PlayerMode.lowLatency,
           )
           .then((value) => {
-                Future.delayed(const Duration(milliseconds: 500), () {
+                Future.delayed(const Duration(milliseconds: 300), () {
                   player.state = PlayerState.stopped;
                 })
               });
-      // player.onPositionChanged.listen((event) {
-      //   if(player.getCurrentPosition() == player.getDuration()){
-      //     player.stop();
-      //     notifyListeners();
-      //   }
-      // });
     } on Exception catch (_, e) {
       print(e);
     }
@@ -52,14 +45,12 @@ class AudioPlayerServices extends ChangeNotifier {
   void loopback(Pad pad) async {
     if (player.state == PlayerState.playing) {
       await player.stop();
-      //notifyListeners();
     } else {
       await player.setReleaseMode(ReleaseMode.loop);
       await player.play(
         DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
-      //notifyListeners();
     }
   }
 
@@ -69,11 +60,9 @@ class AudioPlayerServices extends ChangeNotifier {
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
-    // notifyListeners();
   }
 
   void loopEnd(Pad pad) async {
     await player.stop();
-    //notifyListeners();
   }
 }

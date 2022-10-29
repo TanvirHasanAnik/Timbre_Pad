@@ -126,9 +126,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
                       asd.getAudioStatus(playerService.player) == "stopped"
-                          ? Color(0xff000000)
-                          : Color(0xffffffff),
-                      Color(0xff1e3c72),
+                          ? const Color(0xff000000)
+                          : const Color(0xffC33764),
+                      const Color(0xff1D2671),
                     ]),
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(12)),
