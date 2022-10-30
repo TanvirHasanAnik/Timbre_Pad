@@ -7,8 +7,10 @@ import 'package:flutter_projects/models/pad.dart';
 class AudioPlayerServices extends ChangeNotifier {
   int? id = null;
 
-  AudioPlayerServices(int? id) {
-    this.id = id;
+  AudioPlayerServices(this.id) {
+    if (player.playerId == "$id") {
+      player.stop();
+    }
   }
 
   late AudioPlayer player = AudioPlayer(playerId: id.toString());
@@ -29,15 +31,10 @@ class AudioPlayerServices extends ChangeNotifier {
     return state;
   }
 
-  bool stopPlayer() {
-    player.stop();
-    return true;
-  }
-
   void oneshot(Pad pad) async {
     try {
-      player.setReleaseMode(ReleaseMode.stop);
-      player.stop();
+      await player.setReleaseMode(ReleaseMode.stop);
+      await player.stop();
       await player
           .play(
         DeviceFileSource(pad.path ?? ''),
