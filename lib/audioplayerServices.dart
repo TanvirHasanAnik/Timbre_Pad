@@ -5,7 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_projects/models/pad.dart';
 
 class AudioPlayerServices extends ChangeNotifier {
-  AudioPlayer player = AudioPlayer();
+  int? id = null;
+
+  AudioPlayerServices(int? id) {
+    this.id = id;
+  }
+
+  late AudioPlayer player = AudioPlayer(playerId: id.toString());
 
   @override
   void dispose() {
@@ -21,6 +27,11 @@ class AudioPlayerServices extends ChangeNotifier {
       notifyListeners();
     });
     return state;
+  }
+
+  bool stopPlayer() {
+    player.stop();
+    return true;
   }
 
   void oneshot(Pad pad) async {

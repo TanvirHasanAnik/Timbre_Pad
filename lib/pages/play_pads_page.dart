@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
@@ -17,6 +16,11 @@ var db = DatabaseHelper();
 
 class _PlayPadsPageState extends State<PlayPadsPage> {
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -28,9 +32,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               color: Colors.white,
             ),
             onPressed: () {
-              setState(() {
-                AudioPlayer().dispose();
-              });
+              setState(() {});
             },
           ),
           IconButton(
@@ -80,7 +82,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
         itemCount: snapshot.data?.length ?? 0,
         itemBuilder: (context, index) {
           Pad pad = snapshot.data![index];
-          final AudioPlayerServices playerService = AudioPlayerServices();
+          final AudioPlayerServices playerService = AudioPlayerServices(pad.id);
           return GestureDetector(
             onLongPressStart: (longPressEndDetails) {
               if (pad.soundMode == SoundMode.loop.name) {
@@ -121,13 +123,13 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                         spreadRadius: 1,
                         blurRadius: 3,
                         offset:
-                            const Offset(3, 3), // changes position of shadow
+                        const Offset(3, 3), // changes position of shadow
                       ),
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
                       notifyPlayerService
-                                  .getAudioStatus(playerService.player) ==
-                              "stopped"
+                          .getAudioStatus(playerService.player) ==
+                          "stopped"
                           ? const Color(0xff2f3db6)
                           : const Color(0xffC33764),
                       const Color(0xff1D2671),
