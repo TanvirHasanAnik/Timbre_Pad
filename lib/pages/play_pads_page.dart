@@ -57,6 +57,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
       ),
       body: SafeArea(
         child: Container(
+          alignment: Alignment.center,
+          constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -71,14 +73,19 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               future: db.getPad(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
-                return GridViewWidget(snapshot);
+                if (snapshot.data == null) {
+                  return const Text("Add new pads in edit section");
+                }
+                return snapshot.data!.isNotEmpty
+                    ? GridViewWidget(snapshot)
+                    : const Text("Add new pads in edit section");
               }),
         ),
       ),
     );
   }
 
-  GridView GridViewWidget(AsyncSnapshot<List<Pad>> snapshot) {
+  Widget GridViewWidget(AsyncSnapshot<List<Pad>> snapshot) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
