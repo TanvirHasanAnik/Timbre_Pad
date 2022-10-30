@@ -9,7 +9,7 @@ void main() async {
   if(await db.padTableExists() == false){
     for(int i = 1; i <= 9; i++){
       await db.insertPad(
-          Pad(title: "$i", soundMode: SoundMode.oneshot.name, duration: 1000));
+          Pad(title: "$i", soundMode: SoundMode.oneshot.name, duration: 0));
     }
   }
   runApp(const MyApp());
