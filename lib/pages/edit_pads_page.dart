@@ -26,6 +26,23 @@ class _EditPadsPageState extends State<EditPadsPage> {
         elevation: 0,
         title: const Text("Edit"),
         backgroundColor: const Color(0xffA1C4FD),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.add_box_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              db.insertPad(
+                Pad(
+                    title: "Empty Pad",
+                    soundMode: SoundMode.oneshot.name,
+                    duration: 0),
+              );
+              setState(() {});
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Container(

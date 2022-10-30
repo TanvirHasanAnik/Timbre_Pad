@@ -134,8 +134,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
                       notifyPlayerService
-                                  .getAudioStatus(playerService.player) ==
-                              "stopped"
+                                      .getAudioStatus(playerService.player) ==
+                                  "stopped" ||
+                              pad.path == null
                           ? const Color(0xff4956d0)
                           : const Color(0xffC33764),
                       const Color(0xff1D2671),
