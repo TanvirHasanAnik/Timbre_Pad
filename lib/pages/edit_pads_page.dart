@@ -91,8 +91,8 @@ class _EditPadsPageState extends State<EditPadsPage> {
           ],
         ),
         Positioned(
-          top: 0,
-          right: 0,
+          top: 5,
+          right: 5,
           child: deleteButton(pad),
         ),
       ]),
@@ -102,8 +102,39 @@ class _EditPadsPageState extends State<EditPadsPage> {
   Widget deleteButton(Pad pad) {
     return GestureDetector(
       onTap: () async {
-        await db.deletePad(pad);
-        setState(() {});
+        // set up the buttons
+        Widget cancelButton = TextButton(
+          child: const Text("Cancel"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        );
+        Widget continueButton = TextButton(
+          child: const Text("Delete"),
+          onPressed: () async {
+            await db.deletePad(pad);
+            setState(() {});
+            Navigator.pop(context);
+          },
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: const Text("Delete?"),
+          content: const Text("Would you like to delete this pad?"),
+          actions: [
+            cancelButton,
+            continueButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
       },
       child: const Icon(
         Icons.remove_circle,
