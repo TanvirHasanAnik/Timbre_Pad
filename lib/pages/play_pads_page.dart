@@ -129,14 +129,14 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                         spreadRadius: 1,
                         blurRadius: 3,
                         offset:
-                        const Offset(3, 3), // changes position of shadow
+                            const Offset(3, 3), // changes position of shadow
                       ),
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
                       notifyPlayerService
-                          .getAudioStatus(playerService.player) ==
-                          "stopped"
-                          ? const Color(0xff2f3db6)
+                                  .getAudioStatus(playerService.player) ==
+                              "stopped"
+                          ? const Color(0xff4956d0)
                           : const Color(0xffC33764),
                       const Color(0xff1D2671),
                     ]),
@@ -152,27 +152,27 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Text(
-        "${pad.soundMode}",
-        style: const TextStyle(
-            color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Text(
+            "${pad.soundMode}",
+            style: const TextStyle(
+                color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
 
   Widget padTitleWidget(Pad pad) => Expanded(
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Text(
-          "${pad.title}",
-          style: const TextStyle(color: Color(0xffFFFF00)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Text(
+              "${pad.title}",
+              style: const TextStyle(color: Color(0xffFFFF00)),
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 }

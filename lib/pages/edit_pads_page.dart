@@ -81,13 +81,33 @@ class _EditPadsPageState extends State<EditPadsPage> {
           ]),
           color: Colors.blue,
           borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          padTitleWidget(pad),
-          buttonsRowWidget(pad),
-        ],
+      child: Stack(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            padTitleWidget(pad),
+            buttonsRowWidget(pad),
+          ],
+        ),
+        Positioned(
+          top: 0,
+          right: 0,
+          child: deleteButton(pad),
+        ),
+      ]),
+    );
+  }
+
+  Widget deleteButton(Pad pad) {
+    return GestureDetector(
+      onTap: () async {
+        await db.deletePad(pad);
+        setState(() {});
+      },
+      child: const Icon(
+        Icons.remove_circle,
+        color: Colors.red,
       ),
     );
   }

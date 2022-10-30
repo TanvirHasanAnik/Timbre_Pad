@@ -36,6 +36,11 @@ class DatabaseHelper {
     );
   }
 
+  Future<void> deletePad(Pad pad) async {
+    final db = await database;
+    await db.delete('pad', where: '${Pad.COL_ID} = ?', whereArgs: [pad.id]);
+  }
+
   Future<void> updatePad(
       int? id, String newTitle, String path, int? duration) async {
     final db = await database;
