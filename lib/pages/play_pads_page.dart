@@ -41,6 +41,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               color: Colors.white,
             ),
             onPressed: () {
+              setState(() {});
               Navigator.push(
                       context,
                       MaterialPageRoute(
