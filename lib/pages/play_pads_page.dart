@@ -74,13 +74,24 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               builder:
                   (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
                 if (snapshot.data == null) {
-                  return const Text("Add new pads in edit section");
+                  return addNewPadAdviceWidget();
                 }
                 return snapshot.data!.isNotEmpty
                     ? GridViewWidget(snapshot)
-                    : const Text("Add new pads in edit section");
+                    : addNewPadAdviceWidget();
               }),
         ),
+      ),
+    );
+  }
+
+  Container addNewPadAdviceWidget() {
+    return Container(
+      child: const Text(
+        "Add new pads in edit section",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
+        softWrap: true,
       ),
     );
   }
