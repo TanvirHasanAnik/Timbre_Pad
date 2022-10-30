@@ -41,8 +41,13 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditPadsPage()));
+              Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditPadsPage()))
+                  .then((value) {
+                setState(() {});
+              });
             },
           ),
         ],
