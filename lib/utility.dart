@@ -12,12 +12,15 @@ DatabaseHelper db = DatabaseHelper();
 class Utility {
   static Future pickAudio(int? padId, BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String lastFilePath =
-        prefs.getString("lastLocation") ?? "storage/emulated/0";
-    String lastPath = lastFilePath;
+    String lastPath = "storage/emulated/0";
+    var lastPathSubDirectoryList = prefs.getString("lastLocation")?.split("/");
+    if (lastPathSubDirectoryList != null) {
+      lastPath = removeFileNameFromPath(lastPathSubDirectoryList);
+    }
     var result = await FilesystemPicker.open(
       allowedExtensions: [".mp3", ".aac", ".flac", ".wav", ".m4a"],
       context: context,
+      directory: Directory(lastPath),
       rootDirectory: Directory("storage/emulated/0"),
     );
     if (result != null) {
@@ -31,5 +34,13 @@ class Utility {
       await db.updatePad(
           padId, basenameWithoutExtension(file.path), file.path, duration);
     }
+  }
+
+  static String removeFileNameFromPath(List<String> lastPathSubDirectoryList) {
+    String lastPath = "";
+    for (int i = 0; i < lastPathSubDirectoryList.length - 1; i++) {
+      lastPath += "${lastPathSubDirectoryList[i]}/";
+    }
+    return lastPath;
   }
 }
