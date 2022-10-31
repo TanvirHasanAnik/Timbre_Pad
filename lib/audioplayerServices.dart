@@ -4,33 +4,27 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_projects/models/pad.dart';
 
-class AudioPlayerServices extends ChangeNotifier {
-  int? id = null;
+class AudioPlayerService extends ChangeNotifier {
   Timer? stopperTimer;
+  late AudioPlayer player;
+  late StreamSubscription playerStateListener;
 
-  AudioPlayerServices(this.id) {
-    if (player.playerId == "$id") {
-      player.stop();
-    }
+  AudioPlayerService(int id) {
+    player = AudioPlayer(playerId: id.toString());
+    player.stop();
+    playerStateListener = player.onPlayerStateChanged.listen((event) {
+      notifyListeners();
+    });
   }
-
-  late AudioPlayer player = AudioPlayer(playerId: id.toString());
 
   @override
   void dispose() {
-    // TODO: implement dispose
     player.dispose();
+    playerStateListener.cancel();
     super.dispose();
   }
 
-  String getAudioStatus(AudioPlayer player) {
-    String state = player.state.name;
-    player.onPlayerStateChanged.listen((event) {
-      state = event.name;
-      notifyListeners();
-    });
-    return state;
-  }
+  PlayerState getAudioStatus() => player.state;
 
   void oneshot(Pad pad) async {
     try {

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
@@ -100,11 +101,11 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         itemCount: snapshot.data?.length ?? 0,
         itemBuilder: (context, index) {
           Pad pad = snapshot.data![index];
-          final AudioPlayerServices playerService = AudioPlayerServices(pad.id);
+          final AudioPlayerService playerService = AudioPlayerService(pad.id ?? -1);
           return GestureDetector(
             onLongPressStart: (longPressEndDetails) {
               if (pad.soundMode == SoundMode.loop.name) {
@@ -132,11 +133,11 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
         });
   }
 
-  Widget playPadItemWidget(Pad pad, AudioPlayerServices playerService) {
-    return ChangeNotifierProvider<AudioPlayerServices>(
+  Widget playPadItemWidget(Pad pad, AudioPlayerService playerService) {
+    return ChangeNotifierProvider<AudioPlayerService>(
         create: (BuildContext context) => playerService,
-        child: Consumer<AudioPlayerServices>(
-          builder: (context, notifyPlayerService, child) {
+        child: Consumer<AudioPlayerService>(
+          builder: (context, audioPlayerService, child) {
             return Container(
                 decoration: BoxDecoration(
                     boxShadow: [
@@ -148,8 +149,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                       ),
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
-                      notifyPlayerService.getAudioStatus(playerService.player) == "stopped" ||
-                              pad.path == null
+                      audioPlayerService.getAudioStatus() == PlayerState.stopped || pad.path == null
                           ? const Color(0xffc2e59c)
                           : const Color(0xffff4d4d),
                       const Color(0xff64b3f4),
@@ -166,26 +166,26 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Text(
-            pad.soundMode!.toUpperCase(),
-            style: const TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
+    padding: const EdgeInsets.all(8.0),
+    child: SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Text(
+        pad.soundMode!.toUpperCase(),
+        style: const TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 
   Widget padTitleWidget(Pad pad) => Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Text(
-              "${pad.title}",
-              style: GoogleFonts.cabin(color: Color(0xff1a0033), fontWeight: FontWeight.w600),
-            ),
-          ),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Text(
+          "${pad.title}",
+          style: GoogleFonts.cabin(color: Color(0xff1a0033), fontWeight: FontWeight.w600),
         ),
-      );
+      ),
+    ),
+  );
 }
