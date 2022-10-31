@@ -55,7 +55,6 @@ class _EditPadsPageState extends State<EditPadsPage> {
                   Color(0xffA1C4FD),
                 ]),
           ),
-          padding: const EdgeInsets.all(10),
           child: FutureBuilder(
             future: db.getPad(),
             builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
@@ -74,6 +73,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
+        padding: const EdgeInsets.all(10),
         itemCount: snapshot.data?.length ?? 0,
         itemBuilder: (context, index) {
           Pad pad = snapshot.data![index];

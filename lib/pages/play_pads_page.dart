@@ -68,7 +68,6 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                   Color(0xffB7F8DB),
                 ]),
           ),
-          padding: EdgeInsets.all(10),
           child: FutureBuilder(
               future: db.getPad(),
               builder:
@@ -103,6 +102,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
+        padding: EdgeInsets.all(10),
         itemCount: snapshot.data?.length ?? 0,
         itemBuilder: (context, index) {
           Pad pad = snapshot.data![index];
