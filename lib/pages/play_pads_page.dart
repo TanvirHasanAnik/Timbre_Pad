@@ -178,7 +178,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           child: Text(
             pad.soundMode!.toUpperCase(),
             style: const TextStyle(
-                color: Color(0xff751aff), fontWeight: FontWeight.bold),
+                color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -190,7 +190,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             scrollDirection: Axis.vertical,
             child: Text(
               "${pad.title}",
-              style: GoogleFonts.lato(),
+              style: GoogleFonts.cabin(
+                  color: Color(0xff1a0033), fontWeight: FontWeight.w600),
             ),
           ),
         ),
