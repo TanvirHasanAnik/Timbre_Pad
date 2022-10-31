@@ -155,9 +155,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                                       .getAudioStatus(playerService.player) ==
                                   "stopped" ||
                               pad.path == null
-                          ? const Color(0xff4956d0)
+                          ? const Color(0xffc2e59c)
                           : const Color(0xffC33764),
-                      const Color(0xff1D2671),
+                      const Color(0xff64b3f4),
                     ]),
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(12)),
@@ -177,7 +177,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           child: Text(
             "${pad.soundMode}",
             style: const TextStyle(
-                color: Color(0xff00FFFF), fontWeight: FontWeight.bold),
+                color: Color(0xffffffff), fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -189,7 +189,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             scrollDirection: Axis.vertical,
             child: Text(
               "${pad.title}",
-              style: const TextStyle(color: Color(0xffFFFF00)),
+              style: const TextStyle(color: Color(0xff000066)),
             ),
           ),
         ),
