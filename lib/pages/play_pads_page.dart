@@ -3,6 +3,7 @@ import 'package:flutter_projects/audioplayerServices.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/pages/edit_pads_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class PlayPadsPage extends StatefulWidget {
@@ -175,9 +176,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Text(
-            "${pad.soundMode}",
+            pad.soundMode!.toUpperCase(),
             style: const TextStyle(
-                color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
+                color: Color(0xff751aff), fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -189,8 +190,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             scrollDirection: Axis.vertical,
             child: Text(
               "${pad.title}",
-              style: const TextStyle(
-                  color: Color(0xff000066), fontWeight: FontWeight.w500),
+              style: GoogleFonts.lato(),
             ),
           ),
         ),
