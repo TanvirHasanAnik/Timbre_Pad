@@ -44,6 +44,11 @@ dependencies:
   permission_handler: ^10.2.0
   provider: ^6.0.4
   shared_preferences: ^2.0.15
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "lib/assets/icon/icon.png"
 
 dev_dependencies:
   flutter_test:
