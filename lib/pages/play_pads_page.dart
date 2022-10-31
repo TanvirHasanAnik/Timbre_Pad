@@ -44,10 +44,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             onPressed: () {
               setState(() {});
               Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditPadsPage()))
-                  .then((value) {
+                context,
+                MaterialPageRoute(builder: (context) => const EditPadsPage()),
+              ).then((value) {
                 setState(() {});
               });
             },
@@ -71,8 +70,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           ),
           child: FutureBuilder(
               future: db.getPad(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
                 if (snapshot.data == null) {
                   return addNewPadAdviceWidget();
                 }
@@ -89,8 +87,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
     return Container(
       child: const Text(
         "Add new pads in edit section",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
         softWrap: true,
       ),
     );
@@ -147,14 +144,11 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                         color: Colors.black.withOpacity(0.3),
                         spreadRadius: 1,
                         blurRadius: 3,
-                        offset:
-                            const Offset(3, 3), // changes position of shadow
+                        offset: const Offset(3, 3), // changes position of shadow
                       ),
                     ],
                     gradient: RadialGradient(radius: 1, colors: <Color>[
-                      notifyPlayerService
-                                      .getAudioStatus(playerService.player) ==
-                                  "stopped" ||
+                      notifyPlayerService.getAudioStatus(playerService.player) == "stopped" ||
                               pad.path == null
                           ? const Color(0xffc2e59c)
                           : const Color(0xffff4d4d),
@@ -177,8 +171,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           scrollDirection: Axis.vertical,
           child: Text(
             pad.soundMode!.toUpperCase(),
-            style: const TextStyle(
-                color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -190,8 +183,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             scrollDirection: Axis.vertical,
             child: Text(
               "${pad.title}",
-              style: GoogleFonts.cabin(
-                  color: Color(0xff1a0033), fontWeight: FontWeight.w600),
+              style: GoogleFonts.cabin(color: Color(0xff1a0033), fontWeight: FontWeight.w600),
             ),
           ),
         ),

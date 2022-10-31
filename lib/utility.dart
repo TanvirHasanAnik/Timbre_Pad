@@ -28,11 +28,9 @@ class Utility {
       prefs.setString('lastLocation', file.path);
       AudioPlayer player = AudioPlayer();
       await player.setSourceUrl(file.path ?? '');
-      Duration tempDuration =
-          await player.getDuration() ?? const Duration(milliseconds: 1000);
+      Duration tempDuration = await player.getDuration() ?? const Duration(milliseconds: 1000);
       int duration = tempDuration.inMilliseconds;
-      await db.updatePad(
-          padId, basenameWithoutExtension(file.path), file.path, duration);
+      await db.updatePad(padId, basenameWithoutExtension(file.path), file.path, duration);
     }
   }
 

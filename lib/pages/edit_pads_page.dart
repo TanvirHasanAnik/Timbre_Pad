@@ -34,10 +34,7 @@ class _EditPadsPageState extends State<EditPadsPage> {
             ),
             onPressed: () {
               db.insertPad(
-                Pad(
-                    title: "Empty Pad",
-                    soundMode: SoundMode.oneshot.name,
-                    duration: 0),
+                Pad(title: "Empty Pad", soundMode: SoundMode.oneshot.name, duration: 0),
               );
               setState(() {});
             },
@@ -47,13 +44,11 @@ class _EditPadsPageState extends State<EditPadsPage> {
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.center,
-                end: Alignment.topCenter,
-                colors: <Color>[
-                  Color(0xffC2E9FB),
-                  Color(0xffA1C4FD),
-                ]),
+            gradient:
+                LinearGradient(begin: Alignment.center, end: Alignment.topCenter, colors: <Color>[
+              Color(0xffC2E9FB),
+              Color(0xffA1C4FD),
+            ]),
           ),
           child: FutureBuilder(
             future: db.getPad(),
