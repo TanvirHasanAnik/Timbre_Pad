@@ -75,8 +75,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: <Color>[
-                Color(0xff00cdac),
                 Color(0xff02aab0),
+                Color(0xff00cdac),
               ]),
           color: Colors.blue,
           borderRadius: BorderRadius.circular(12)),
@@ -85,11 +85,21 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Play",
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  child: Image.asset('lib/assets/icon/icon.png', fit: BoxFit.cover),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Play",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
             ),
           ),
           Row(
