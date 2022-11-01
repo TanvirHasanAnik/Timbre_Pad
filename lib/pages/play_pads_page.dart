@@ -71,10 +71,13 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               offset: const Offset(3, 3), // changes position of shadow
             ),
           ],
-          gradient: const LinearGradient(colors: <Color>[
-            Color(0xff02aab0),
-            Color(0xff00cdac),
-          ]),
+          gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                Color(0xff00cdac),
+                Color(0xff02aab0),
+              ]),
           color: Colors.blue,
           borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.all(10),
