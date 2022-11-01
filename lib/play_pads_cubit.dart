@@ -1,27 +1,20 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/models/pad.dart';
 
-class AudioPlayerService extends ChangeNotifier {
+class PlayPadsCubit extends Cubit<PlayerState> {
   Timer? stopperTimer;
   late AudioPlayer player;
   late StreamSubscription playerStateListener;
 
-  AudioPlayerService(int id) {
+  PlayPadsCubit(int id) : super(PlayerState.stopped) {
     player = AudioPlayer(playerId: id.toString());
     player.stop();
-    playerStateListener = player.onPlayerStateChanged.listen((event) {
-      notifyListeners();
+    playerStateListener = player.onPlayerStateChanged.listen((playerState) {
+      emit(playerState);
     });
-  }
-
-  @override
-  void dispose() {
-    player.dispose();
-    playerStateListener.cancel();
-    super.dispose();
   }
 
   PlayerState getAudioStatus() => player.state;

@@ -1,11 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/audioplayerServices.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/database_helper.dart';
 import 'package:flutter_projects/models/pad.dart';
 import 'package:flutter_projects/pages/edit_pads_page.dart';
+import 'package:flutter_projects/play_pads_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class PlayPadsPage extends StatefulWidget {
   const PlayPadsPage({Key? key}) : super(key: key);
@@ -105,64 +105,64 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
         itemCount: snapshot.data?.length ?? 0,
         itemBuilder: (context, index) {
           Pad pad = snapshot.data![index];
-          final AudioPlayerService playerService = AudioPlayerService(pad.id ?? -1);
-          return GestureDetector(
-            onLongPressStart: (longPressEndDetails) {
-              if (pad.soundMode == SoundMode.loop.name) {
-                playerService.loopStart(pad);
-              }
-            },
-            onLongPressEnd: (longPressEndDetails) {
-              if (pad.soundMode == SoundMode.loop.name) {
-                playerService.loopEnd(pad);
-              }
-            },
-            onTap: () {
-              try {
-                if (pad.soundMode == SoundMode.oneshot.name) {
-                  playerService.oneshot(pad);
-                } else if (pad.soundMode == SoundMode.loopback.name) {
-                  playerService.loopback(pad);
+          final PlayPadsCubit playPadsCubit = PlayPadsCubit(pad.id ?? -1);
+          return BlocProvider(
+            create: (_) => playPadsCubit,
+            child: GestureDetector(
+              onLongPressStart: (longPressEndDetails) {
+                if (pad.soundMode == SoundMode.loop.name) {
+                  playPadsCubit.loopStart(pad);
                 }
-              } on Exception catch (_, e) {
-                print(e);
-              }
-            },
-            child: playPadItemWidget(pad, playerService),
+              },
+              onLongPressEnd: (longPressEndDetails) {
+                if (pad.soundMode == SoundMode.loop.name) {
+                  playPadsCubit.loopEnd(pad);
+                }
+              },
+              onTap: () {
+                try {
+                  if (pad.soundMode == SoundMode.oneshot.name) {
+                    playPadsCubit.oneshot(pad);
+                  } else if (pad.soundMode == SoundMode.loopback.name) {
+                    playPadsCubit.loopback(pad);
+                  }
+                } on Exception catch (_, e) {
+                  print(e);
+                }
+              },
+              child: playPadItemWidget(pad),
+            ),
           );
         });
   }
 
-  Widget playPadItemWidget(Pad pad, AudioPlayerService playerService) {
-    return ChangeNotifierProvider<AudioPlayerService>(
-        create: (BuildContext context) => playerService,
-        child: Consumer<AudioPlayerService>(
-          builder: (context, audioPlayerService, child) {
-            return Container(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 3,
-                        offset: const Offset(3, 3), // changes position of shadow
-                      ),
-                    ],
-                    gradient: RadialGradient(radius: 1, colors: <Color>[
-                      audioPlayerService.getAudioStatus() == PlayerState.stopped || pad.path == null
-                          ? const Color(0xffc2e59c)
-                          : const Color(0xffff4d4d),
-                      const Color(0xff64b3f4),
-                    ]),
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(12)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [padTitleWidget(pad), padSoundModeWidget(pad)],
-                ));
-          },
-        ));
+  Widget playPadItemWidget(Pad pad) {
+    return BlocBuilder<PlayPadsCubit, PlayerState>(
+        builder: (context, playerState) {
+      return Container(
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(3, 3), // changes position of shadow
+                ),
+              ],
+              gradient: RadialGradient(radius: 1, colors: <Color>[
+                      playerState == PlayerState.stopped || pad.path == null
+                    ? const Color(0xffc2e59c)
+                    : const Color(0xffff4d4d),
+                const Color(0xff64b3f4),
+              ]),
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(12)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [padTitleWidget(pad), padSoundModeWidget(pad)],
+          ));
+    });
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
