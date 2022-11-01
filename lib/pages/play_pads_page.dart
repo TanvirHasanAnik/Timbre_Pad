@@ -25,37 +25,6 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(
-      //         Icons.sync,
-      //         color: Colors.white,
-      //       ),
-      //       onPressed: () {
-      //         setState(() {});
-      //       },
-      //     ),
-      //     IconButton(
-      //       icon: const Icon(
-      //         Icons.edit,
-      //         color: Colors.white,
-      //       ),
-      //       onPressed: () {
-      //         setState(() {});
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => const EditPadsPage()),
-      //         ).then((value) {
-      //           setState(() {});
-      //         });
-      //       },
-      //     ),
-      //   ],
-      //   title: Text("Play"),
-      //   backgroundColor: const Color(0xff50A7C2),
-      // ),
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
@@ -65,8 +34,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: <Color>[
-                  Color(0xff50A7C2),
-                  Color(0xffB7F8DB),
+                  Color(0xff2193b0),
+                  Color(0xff6dd5ed),
                 ]),
           ),
           child: Column(
@@ -103,8 +72,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             ),
           ],
           gradient: const LinearGradient(colors: <Color>[
-            Color(0xffc2e59c),
-            Color(0xff64b3f4),
+            Color(0xff02aab0),
+            Color(0xff00cdac),
           ]),
           color: Colors.blue,
           borderRadius: BorderRadius.circular(12)),
