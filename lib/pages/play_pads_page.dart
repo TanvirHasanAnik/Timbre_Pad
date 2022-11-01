@@ -137,8 +137,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   }
 
   Widget playPadItemWidget(Pad pad) {
-    return BlocBuilder<PlayPadsCubit, PlayerState>(
-        builder: (context, playerState) {
+    return BlocBuilder<PlayPadsCubit, PlayerState>(builder: (context, playerState) {
       return Container(
           decoration: BoxDecoration(
               boxShadow: [
@@ -150,7 +149,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                 ),
               ],
               gradient: RadialGradient(radius: 1, colors: <Color>[
-                      playerState == PlayerState.stopped || pad.path == null
+                playerState == PlayerState.stopped || pad.path == null
                     ? const Color(0xffc2e59c)
                     : const Color(0xffff4d4d),
                 const Color(0xff64b3f4),
@@ -166,26 +165,26 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   }
 
   Widget padSoundModeWidget(Pad pad) => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Text(
-        pad.soundMode!.toUpperCase(),
-        style: const TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Text(
+            pad.soundMode!.toUpperCase(),
+            style: const TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
 
   Widget padTitleWidget(Pad pad) => Expanded(
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Text(
-          "${pad.title}",
-          style: GoogleFonts.cabin(color: Color(0xff1a0033), fontWeight: FontWeight.w600),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Text(
+              "${pad.title}",
+              style: GoogleFonts.cabin(color: Color(0xff1a0033), fontWeight: FontWeight.w600),
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 }
