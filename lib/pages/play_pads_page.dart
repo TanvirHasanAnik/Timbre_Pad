@@ -239,7 +239,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           child: Text(
             pad.soundMode!.toUpperCase(),
             style: const TextStyle(
-                color: Color(0xffffffff), fontWeight: FontWeight.bold, fontSize: 11),
+                color: Color(0xffddddbb), fontWeight: FontWeight.bold, fontSize: 11),
           ),
         ),
       );
