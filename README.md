@@ -1,6 +1,6 @@
-# flutter_projects
+# timbre_pad
 
-A new Flutter project.
+Audio mixer
 
 ## Getting Started
 

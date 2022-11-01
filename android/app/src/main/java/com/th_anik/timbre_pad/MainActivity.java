@@ -1,4 +1,4 @@
-package com.example.flutter_projects;
+package com.th_anik.timbre_pad;
 
 import io.flutter.embedding.android.FlutterActivity;
 
