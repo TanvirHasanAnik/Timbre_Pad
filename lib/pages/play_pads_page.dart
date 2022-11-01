@@ -62,26 +62,27 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
 
   Widget customAppbar() {
     return Container(
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 3,
-              offset: const Offset(3, 3), // changes position of shadow
-            ),
-          ],
-          gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xff02aab0),
-                Color(0xff00cdac),
-              ]),
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.all(10),
       height: 60,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: const Offset(3, 3), // changes position of shadow
+          ),
+        ],
+        gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[
+              Color(0xff02aab0),
+              Color(0xff00cdac),
+            ]),
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -135,16 +136,6 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
     );
   }
 
-  Container addNewPadAdviceWidget() {
-    return Container(
-      child: const Text(
-        "Add new pads in edit section",
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
-        softWrap: true,
-      ),
-    );
-  }
-
   Widget GridViewWidget(AsyncSnapshot<List<Pad>> snapshot) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -189,6 +180,16 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             ),
           );
         });
+  }
+
+  Container addNewPadAdviceWidget() {
+    return Container(
+      child: const Text(
+        "Add new pads in edit section",
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
+        softWrap: true,
+      ),
+    );
   }
 
   Widget playPadItemWidget(Pad pad) {
