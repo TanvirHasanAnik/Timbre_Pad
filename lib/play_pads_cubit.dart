@@ -8,6 +8,7 @@ class PlayPadsCubit extends Cubit<PlayerState> {
   Timer? stopperTimer;
   late AudioPlayer player;
   late StreamSubscription playerStateListener;
+  bool isLoopStarting = false;
 
   PlayPadsCubit(int id) : super(PlayerState.stopped) {
     player = AudioPlayer(playerId: id.toString());
@@ -49,14 +50,20 @@ class PlayPadsCubit extends Cubit<PlayerState> {
   }
 
   void loopStart(Pad pad) async {
+    isLoopStarting = true;
     await player.setReleaseMode(ReleaseMode.loop);
     await player.play(
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
+    isLoopStarting = false;
   }
 
   void loopEnd(Pad pad) async {
-    await player.stop();
+    if (isLoopStarting) {
+      Future.delayed(const Duration(milliseconds: 100), () => player.stop());
+    } else {
+      player.stop();
+    }
   }
 }
