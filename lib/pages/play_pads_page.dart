@@ -133,7 +133,6 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                     playPadsCubit.loopback(pad);
                   }
                 } on Exception catch (_, e) {
-                  print(e);
                 }
               },
               child: playPadItemWidget(pad),
