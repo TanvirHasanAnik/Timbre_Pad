@@ -170,17 +170,6 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
     });
   }
 
-  Widget padSoundModeWidget(Pad pad) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Text(
-            pad.soundMode!.toUpperCase(),
-            style: const TextStyle(color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
-
   Widget padTitleWidget(Pad pad) => Expanded(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -190,6 +179,18 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               "${pad.title}",
               style: GoogleFonts.cabin(color: Color(0xff1a0033), fontWeight: FontWeight.w600),
             ),
+          ),
+        ),
+      );
+
+  Widget padSoundModeWidget(Pad pad) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Text(
+            pad.soundMode!.toUpperCase(),
+            style: const TextStyle(
+                color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold, fontSize: 11),
           ),
         ),
       );
