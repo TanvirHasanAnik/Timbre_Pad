@@ -82,9 +82,9 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
               "Play",
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
             ),
@@ -190,11 +190,11 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                   offset: const Offset(3, 3), // changes position of shadow
                 ),
               ],
-              gradient: RadialGradient(radius: 1, colors: <Color>[
+              gradient: RadialGradient(radius: 0.9, colors: <Color>[
                 playerState == PlayerState.stopped || pad.path == null
-                    ? const Color(0xffc2e59c)
+                    ? const Color(0xff43cea2)
                     : const Color(0xffff4d4d),
-                const Color(0xff64b3f4),
+                const Color(0xff185a9d),
               ]),
               color: Colors.blue,
               borderRadius: BorderRadius.circular(12)),
@@ -213,7 +213,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             scrollDirection: Axis.vertical,
             child: Text(
               "${pad.title}",
-              style: GoogleFonts.cabin(color: Color(0xff283e3e), fontWeight: FontWeight.w600),
+              style: GoogleFonts.cabin(color: Color(0xffd9e6f2), fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -226,7 +226,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           child: Text(
             pad.soundMode!.toUpperCase(),
             style: const TextStyle(
-                color: Color(0xff3366cc), fontWeight: FontWeight.bold, fontSize: 11),
+                color: Color(0xffffffff), fontWeight: FontWeight.bold, fontSize: 11),
           ),
         ),
       );
