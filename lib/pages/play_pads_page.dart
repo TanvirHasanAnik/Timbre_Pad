@@ -107,6 +107,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           Pad pad = snapshot.data![index];
           final PlayPadsCubit playPadsCubit = PlayPadsCubit(pad.id ?? -1);
           return BlocProvider(
+            key: UniqueKey(),
             create: (_) => playPadsCubit,
             child: GestureDetector(
               onLongPressStart: (longPressEndDetails) {
