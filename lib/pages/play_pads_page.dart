@@ -25,37 +25,37 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.sync,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {});
-            },
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {});
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const EditPadsPage()),
-              ).then((value) {
-                setState(() {});
-              });
-            },
-          ),
-        ],
-        title: Text("Play"),
-        backgroundColor: const Color(0xff50A7C2),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(
+      //         Icons.sync,
+      //         color: Colors.white,
+      //       ),
+      //       onPressed: () {
+      //         setState(() {});
+      //       },
+      //     ),
+      //     IconButton(
+      //       icon: const Icon(
+      //         Icons.edit,
+      //         color: Colors.white,
+      //       ),
+      //       onPressed: () {
+      //         setState(() {});
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => const EditPadsPage()),
+      //         ).then((value) {
+      //           setState(() {});
+      //         });
+      //       },
+      //     ),
+      //   ],
+      //   title: Text("Play"),
+      //   backgroundColor: const Color(0xff50A7C2),
+      // ),
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
@@ -69,17 +69,86 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                   Color(0xffB7F8DB),
                 ]),
           ),
-          child: FutureBuilder(
-              future: db.getPad(),
-              builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
-                if (snapshot.data == null) {
-                  return addNewPadAdviceWidget();
-                }
-                return snapshot.data!.isNotEmpty
-                    ? GridViewWidget(snapshot)
-                    : addNewPadAdviceWidget();
-              }),
+          child: Column(
+            children: [
+              customAppbar(),
+              Expanded(
+                child: FutureBuilder(
+                    future: db.getPad(),
+                    builder: (BuildContext context, AsyncSnapshot<List<Pad>> snapshot) {
+                      if (snapshot.data == null) {
+                        return addNewPadAdviceWidget();
+                      }
+                      return snapshot.data!.isNotEmpty
+                          ? GridViewWidget(snapshot)
+                          : addNewPadAdviceWidget();
+                    }),
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget customAppbar() {
+    return Container(
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: const Offset(3, 3), // changes position of shadow
+            ),
+          ],
+          gradient: const LinearGradient(colors: <Color>[
+            Color(0xffc2e59c),
+            Color(0xff64b3f4),
+          ]),
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(12)),
+      margin: const EdgeInsets.all(10),
+      height: 60,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text(
+              "Play",
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.sync,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {});
+                },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {});
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const EditPadsPage()),
+                  ).then((value) {
+                    setState(() {});
+                  });
+                },
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -132,8 +201,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                   } else if (pad.soundMode == SoundMode.loopback.name) {
                     playPadsCubit.loopback(pad);
                   }
-                } on Exception catch (_, e) {
-                }
+                } on Exception catch (_, e) {}
               },
               child: playPadItemWidget(pad),
             ),
