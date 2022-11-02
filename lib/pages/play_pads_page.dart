@@ -151,30 +151,22 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           return BlocProvider(
             key: UniqueKey(),
             create: (_) => playPadsCubit,
-            child: GestureDetector(
-              onLongPressDown: (event) {
-                if (pad.soundMode == SoundMode.loop.name) {
-                  playPadsCubit.loopStart(pad);
-                }
-              },
-              onTapUp: (event) {
-                if (pad.soundMode == SoundMode.loop.name) {
-                  playPadsCubit.loopEnd(pad);
-                }
-              },
-              onLongPressEnd: (event) {
-                if (pad.soundMode == SoundMode.loop.name) {
-                  playPadsCubit.loopEnd(pad);
-                }
-              },
-              onTap: () {
+            child: Listener(
+              onPointerDown: (event) {
                 try {
                   if (pad.soundMode == SoundMode.oneshot.name) {
                     playPadsCubit.oneshot(pad);
                   } else if (pad.soundMode == SoundMode.loopback.name) {
                     playPadsCubit.loopback(pad);
+                  } else if (pad.soundMode == SoundMode.loop.name) {
+                    playPadsCubit.loopStart(pad);
                   }
                 } on Exception catch (_, e) {}
+              },
+              onPointerUp: (event) {
+                if (pad.soundMode == SoundMode.loop.name) {
+                  playPadsCubit.loopEnd(pad);
+                }
               },
               child: playPadItemWidget(pad),
             ),
