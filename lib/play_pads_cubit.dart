@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/models/pad.dart';
 
 class PlayPadsCubit extends Cubit<PlayerState> {
-  Timer? stopperTimer;
+  Timer? oneShotStopperTimer;
+  Timer? loopStopperTimer;
   late AudioPlayer player;
   late StreamSubscription playerStateListener;
   bool isLoopStarting = false;
@@ -24,12 +25,12 @@ class PlayPadsCubit extends Cubit<PlayerState> {
     try {
       await player.setReleaseMode(ReleaseMode.stop);
       await player.stop();
-      stopperTimer?.cancel();
+      oneShotStopperTimer?.cancel();
       await player.play(
         DeviceFileSource(pad.path ?? ''),
         mode: PlayerMode.lowLatency,
       );
-      stopperTimer = Timer(Duration(milliseconds: pad.duration ?? 1000), () {
+      oneShotStopperTimer = Timer(Duration(milliseconds: pad.duration ?? 1000), () {
         player.stop();
       });
     } on Exception catch (_, e) {
@@ -56,10 +57,19 @@ class PlayPadsCubit extends Cubit<PlayerState> {
       DeviceFileSource(pad.path ?? ''),
       mode: PlayerMode.lowLatency,
     );
+    loopStopperTimer = Timer(const Duration(milliseconds: 600), () {
+      player.stop();
+    });
+
     isLoopStarting = false;
   }
 
+  void cancelLoopStopperTimer() {
+    loopStopperTimer?.cancel();
+  }
+
   void loopEnd(Pad pad) async {
+    // cancelLoopStopperTimer();
     if (isLoopStarting) {
       Future.delayed(const Duration(milliseconds: 100), () => player.stop());
     } else {

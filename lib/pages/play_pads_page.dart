@@ -157,6 +157,16 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                   playPadsCubit.loopStart(pad);
                 }
               },
+              // onLongPressCancel: () {
+              //   if (pad.soundMode == SoundMode.loop.name) {
+              //     playPadsCubit.cancelLoopStopperTimer();
+              //   }
+              // },
+              onLongPressStart: (e) {
+                if (pad.soundMode == SoundMode.loop.name) {
+                  playPadsCubit.cancelLoopStopperTimer();
+                }
+              },
               onTapUp: (event) {
                 if (pad.soundMode == SoundMode.loop.name) {
                   playPadsCubit.loopEnd(pad);
