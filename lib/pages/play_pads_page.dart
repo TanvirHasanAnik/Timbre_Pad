@@ -152,17 +152,17 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
             key: UniqueKey(),
             create: (_) => playPadsCubit,
             child: GestureDetector(
-              onTapDown: (longPressEndDetails) {
+              onLongPressDown: (event) {
                 if (pad.soundMode == SoundMode.loop.name) {
                   playPadsCubit.loopStart(pad);
                 }
               },
-              onTapUp: (longPressEndDetails) {
+              onTapUp: (event) {
                 if (pad.soundMode == SoundMode.loop.name) {
                   playPadsCubit.loopEnd(pad);
                 }
               },
-              onLongPressEnd: (longPressEndDetails) {
+              onLongPressEnd: (event) {
                 if (pad.soundMode == SoundMode.loop.name) {
                   playPadsCubit.loopEnd(pad);
                 }
