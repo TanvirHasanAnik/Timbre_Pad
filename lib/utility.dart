@@ -36,8 +36,11 @@ class Utility {
 
   static String removeFileNameFromPath(List<String> lastPathSubDirectoryList) {
     String lastPath = "";
-    for (int i = 0; i < lastPathSubDirectoryList.length - 1; i++) {
-      lastPath += "${lastPathSubDirectoryList[i]}/";
+    int listLength = lastPathSubDirectoryList.length;
+    for (int i = 1; i < listLength - 1; i++) {
+      i == listLength - 2
+          ? lastPath += lastPathSubDirectoryList[i]
+          : lastPath += "${lastPathSubDirectoryList[i]}/";
     }
     return lastPath;
   }
