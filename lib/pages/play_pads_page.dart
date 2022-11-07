@@ -34,8 +34,8 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: <Color>[
-                  Color(0xff2193b0),
-                  Color(0xff6dd5ed),
+                  Color(0xff222126),
+                  Color(0xff313133),
                 ]),
           ),
           child: Column(
@@ -76,7 +76,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
         gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: <Color>[Color(0xff02aab0), Color(0xff00cdac)]),
+            colors: <Color>[Color(0xff222126), Color(0xff313133)]),
         color: Colors.blue,
         borderRadius: BorderRadius.circular(12),
       ),
@@ -184,11 +184,13 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
                   offset: const Offset(3, 3), // changes position of shadow
                 ),
               ],
-              gradient: RadialGradient(radius: 0.9, colors: <Color>[
+              gradient: RadialGradient(radius: 1, colors: <Color>[
                 playerState == PlayerState.stopped || pad.path == null
-                    ? const Color(0xff43cea2)
-                    : const Color(0xffff4d4d),
-                const Color(0xff185a9d),
+                    ? Colors.yellow.shade200
+                    : Colors.orangeAccent,
+                playerState == PlayerState.stopped || pad.path == null
+                    ? Colors.yellow.shade700
+                    : Colors.deepOrange,
               ]),
               color: Colors.blue,
               borderRadius: BorderRadius.circular(12)),
