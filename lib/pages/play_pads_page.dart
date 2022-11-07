@@ -186,11 +186,15 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
               ],
               gradient: RadialGradient(radius: 1, colors: <Color>[
                 playerState == PlayerState.stopped || pad.path == null
-                    ? Colors.yellow.shade200
-                    : Colors.orangeAccent,
+                    ? const Color(0xfffede81)
+                    : pad.soundMode == SoundMode.oneshot.name
+                        ? Colors.orangeAccent
+                        : Colors.lightBlueAccent.shade200,
                 playerState == PlayerState.stopped || pad.path == null
-                    ? Colors.yellow.shade700
-                    : Colors.deepOrange,
+                    ? const Color(0xffe3ab02)
+                    : pad.soundMode == SoundMode.oneshot.name
+                        ? Colors.deepOrange
+                        : Colors.blueAccent.shade700,
               ]),
               color: Colors.blue,
               borderRadius: BorderRadius.circular(12)),
@@ -222,7 +226,7 @@ class _PlayPadsPageState extends State<PlayPadsPage> {
           child: Text(
             pad.soundMode!.toUpperCase(),
             style: const TextStyle(
-                color: Color(0xff0066cc), fontWeight: FontWeight.bold, fontSize: 11),
+                color: Color(0xff283b62), fontWeight: FontWeight.bold, fontSize: 11),
           ),
         ),
       );
